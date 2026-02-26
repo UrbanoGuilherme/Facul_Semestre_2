@@ -19,42 +19,61 @@ class ContaBancaria:
     def __init__(self, titular, saldo): 
         self.titular = titular
         self.saldo = saldo
+
     def depositar(self, valor):
-        self.saldo += valor
-        print("o novo saldo é: ", self.saldo)
+        if valor > 0:
+            self.saldo += valor
+            print("o novo saldo é: ", self.saldo)
+        else:
+            print("erro! digite um valor maior que zero")
+
     def sacar(self, valor):
-        self.saldo-= valor
-        print("o novo saldo é: ", self.saldo)
+        if valor < self.saldo:
+            self.saldo-= valor
+            print("o novo saldo é: ", self.saldo)
+        else:
+            print("erro! digite um valor menor que o saldo total")
+
     def exibir_infos(self):
         print("Titular:", self.titular)
         print("Saldo:", self.saldo)
 
-titular1 = str(input("digite o nome do titular:"))
-saldo1 = float(input("digite o saldo da conta:"))
-
-conta1 = ContaBancaria(titular1, saldo1)
+contas = []
 
 while True:
     print("selecione:")
-    print("1 - visualizar infos")
-    print("2 - depositar")
-    print("3 - sacar")
-    print("4 - sair")
+    print("1 - criar conta")
+    print("2 - listar contas")
+    print("3 - depositar")
+    print("4 - sacar")
+    print("5 - sair")
     opcao = int(input("digite:"))
 
     if opcao == 1:
-       conta1.exibir_infos()
+       titular = input("digite o nome do titular:")
+       saldo = float(input("digite o saldo:"))
+       conta = ContaBancaria(titular, saldo)
+       contas.append(conta)
+       print("conta criada!")
 
     elif opcao == 2:
-        valor = float(input("valor para deposito:"))
-        conta1.depositar(valor)
+        for i, conta in enumerate(contas):
+            print(f"{i} - titular: {conta.titular} | saldo: {conta.saldo}")
 
     elif opcao == 3:
-        valor = float(input("valor para sacar:"))
-        conta1.sacar(valor)
-
+        indice = int(input("escolha a conta:"))
+        valor = float(input("valor para depositar:"))
+        contas[indice].depositar(valor)
+        print(f"o novo saldo do titular {contas[indice].titular} é: {contas[indice].saldo}")
+        
     elif opcao == 4:
-        print("encerrando sistema...")
+        indice = int(input("escolha a conta:"))
+        valor = float(input("valor para saque:"))
+        contas[indice].sacar(valor)
+        print(f"o novo saldo do titular {contas[indice].titular} é: {contas[indice].saldo}")
+    
+    elif opcao == 5:
+        print("encerrando...")
         break
 
     else:
