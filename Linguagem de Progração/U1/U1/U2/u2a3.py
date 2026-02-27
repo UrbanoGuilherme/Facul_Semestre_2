@@ -1,86 +1,48 @@
-"""class Pessoa:
-    def __init__(self, nome, idade, genero):
-        self.nome = nome
-        self.idade = idade
-        self.genero = genero
-    def cumprimentar (self):
-        return "olá, meu nome é {}".format(self.nome)
-    def aniversario(self):
-        self.idade +=1 
 
-pessoa1 = Pessoa("Gui", 23, "masculino")
-print(pessoa1.cumprimentar())
-print("idade: {}".format(pessoa1.idade))
-pessoa1.aniversario()
-print("nova idade: {}".format(pessoa1.idade))"""""
-
-
-class ContaBancaria:
-    def __init__(self, titular, saldo): 
-        self.titular = titular
-        self.saldo = saldo
-
-    def depositar(self, valor):
-        if valor > 0:
-            self.saldo += valor
-            print("o novo saldo é: ", self.saldo)
-        else:
-            print("erro! digite um valor maior que zero")
-
-    def sacar(self, valor):
-        if valor < self.saldo:
-            self.saldo-= valor
-            print("o novo saldo é: ", self.saldo)
-        else:
-            print("erro! digite um valor menor que o saldo total")
-
-    def exibir_infos(self):
-        print("Titular:", self.titular)
-        print("Saldo:", self.saldo)
-
-contas = []
-
-while True:
-    print("selecione:")
-    print("1 - criar conta")
-    print("2 - listar contas")
-    print("3 - depositar")
-    print("4 - sacar")
-    print("5 - sair")
-    opcao = int(input("digite:"))
-
-    if opcao == 1:
-       titular = input("digite o nome do titular:")
-       saldo = float(input("digite o saldo:"))
-       conta = ContaBancaria(titular, saldo)
-       contas.append(conta)
-       print("conta criada!")
-
-    elif opcao == 2:
-        for i, conta in enumerate(contas):
-            print(f"{i} - titular: {conta.titular} | saldo: {conta.saldo}")
-
-    elif opcao == 3:
-        indice = int(input("escolha a conta:"))
-        valor = float(input("valor para depositar:"))
-        contas[indice].depositar(valor)
-        print(f"o novo saldo do titular {contas[indice].titular} é: {contas[indice].saldo}")
+class Veiculo:
+    def __init__ (self, marca, modelo, ano): 
+        self.marca = marca
+        self.modelo = modelo
+        self.ano = ano
+        self.velocidade = 0
         
-    elif opcao == 4:
-        indice = int(input("escolha a conta:"))
-        valor = float(input("valor para saque:"))
-        contas[indice].sacar(valor)
-        print(f"o novo saldo do titular {contas[indice].titular} é: {contas[indice].saldo}")
     
-    elif opcao == 5:
-        print("encerrando...")
-        break
+    def acelerar (self, incremento):
+        self.velocidade += incremento
 
-    else:
-        print("opcao invalida")
-        
+    def frear (self, decremento):
+        self.velocidade_inicial = max(0, self.velocidade_inicial - decremento)
 
+    def status (self):
+       return (f"marca:{self.marca}, modelo:{self.modelo}, ano:{self.ano}")
 
+class Carro (Veiculo):
+    def __init__ (self, marca, modelo, ano, velocidade):
+        super().__init__(marca, modelo, ano)
+        self.velocidade = velocidade
 
+    def acelerar (self, incremento):
+        self.velocidade += incremento 
 
+    def status (self):
+       return (f"marca:{self.marca}, modelo:{self.modelo}, ano:{self.ano}, velocidade:{self.velocidade}")
 
+class Bike (Veiculo):
+    def __init__ (self, marca, modelo, ano, tipo):
+        super().__init__(marca, modelo, ano)
+        self.tipo = tipo
+
+    def status (self):
+        return (f"marca:{self.marca}, modelo:{self.modelo}, ano:{self.ano}, tipo:{self.tipo}")
+
+carro1 = Carro("Honda", "Civic", 2025, 150)
+bike1 = Bike("Trek", "Mountain", 2023, "MTB")
+
+print(carro1.status())
+print(bike1.status())
+
+carro1.acelerar(100)
+bike1.acelerar(20)
+
+print(carro1.status())
+print(bike1.status())
